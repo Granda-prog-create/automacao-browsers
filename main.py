@@ -30,5 +30,4 @@ pa.click(x=613, y=99)
 pa.write("Metallica") #Qualquer nome que você quiser 
 pa.hotkey('ctrl' ,'v')
 
-Google
-youtube.com
+
