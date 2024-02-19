@@ -1,33 +1,58 @@
-# Automação de pyautogui para controlar o mouse e o teclado
-import pyautogui as pa 
+import pyautogui as pa
 import time
-#Biblioteca para permitir acentos na digitação
-import pyperclip
+import platform
+import pygetwindow as gw
 
-#Tempo de execução 
+# Função para realizar a pesquisa
+def realizar_pesquisa(pesquisa):
+    global realizou_primeira_pesquisa  # Definir a variável como global
+    # Abrir o navegador apenas na primeira pesquisa
+    if not realizou_primeira_pesquisa:
+        if platform.system() == "Windows":
+            comando = "Brave"  # Pode ser substituído pelo navegador desejado
+        elif platform.system() == "Darwin":
+            comando = "open"
+        else:
+            comando = "xdg-open"
+
+        pa.hotkey('ctrl', 'esc')  # Abre o menu Iniciar no Windows
+        pa.write(comando)
+        pa.press('enter')
+        time.sleep(1)
+        realizou_primeira_pesquisa = True
+
+    # Digitar a pesquisa na barra do navegador
+    pa.write(pesquisa)
+    pa.press('enter')
+    time.sleep(5)  # Aguardar o carregamento da página
+
+# Tempo de espera
 pa.PAUSE = 1
 
-#Tecla windows
-pa.press('win')
+# Variável para controlar se a primeira pesquisa já foi realizada
+realizou_primeira_pesquisa = False
 
-#Escrever o comando
-pa.write("Google")
+# Loop principal
+while True:
+    # Perguntar ao usuário o que ele deseja pesquisar no navegador
+    pesquisa = input("Digite o que você deseja pesquisar no navegador: ")
 
-#Entrar no navegador
-pa.press('ENTER')
+    # Realizar a pesquisa se a entrada do usuário não for "não" ou "não entendi"
+    if pesquisa.lower() not in ["não", "não entendi"]:
+        # Realizar a pesquisa
+        realizar_pesquisa(pesquisa)
 
-#Escrever o comando
-pa.write("youtube.com")
+        # Redefinir realizou_primeira_pesquisa para False antes de cada nova pesquisa
+        realizou_primeira_pesquisa = False
+    else:
+        # Se a entrada do usuário for "não" ou "não entendi", voltar ao início do loop
+        continue
 
-#Entrar no Youtube
-pa.press('ENTER')
+    # Perguntar se deseja realizar outra pesquisa
+    continuar = input("Deseja pesquisar mais alguma coisa? (sim/não): ").lower()
 
-#Clicar na barra de tarefas do Youtube. Aqui vai depender muito das coordenadas do seu computador,os valores de x e y não são fixos. 
-time.sleep(4)
-pa.click(x=613, y=99)
-
-# Fazer a pesquisa 
-pa.write("Metallica") #Qualquer nome que você quiser 
-pa.hotkey('ctrl' ,'v')
-
-
+    # Verificar a resposta do usuário
+    if continuar == "não":
+        break  # Encerrar o loop se a resposta for "não"
+    elif continuar != "sim":
+        print("Desculpe, não entendi.")  # Mensagem de erro se a resposta não for "sim" ou "não"
