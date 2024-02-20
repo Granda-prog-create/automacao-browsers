@@ -45,14 +45,17 @@ while True:
         # Redefinir realizou_primeira_pesquisa para False antes de cada nova pesquisa
         realizou_primeira_pesquisa = False
     else:
-        # Se a entrada do usuário for "não" ou "não entendi", voltar ao início do loop
         continue
 
     # Perguntar se deseja realizar outra pesquisa
-    continuar = input("Deseja pesquisar mais alguma coisa? (sim/não): ").lower()
+    while True:
+        continuar = input("Deseja pesquisar mais alguma coisa? (sim/não): ").lower()
+
+        if continuar in ("sim", "não"):
+            break
+        else:
+            print("Desculpe, não entendi.")
 
     # Verificar a resposta do usuário
     if continuar == "não":
         break  # Encerrar o loop se a resposta for "não"
-    elif continuar != "sim":
-        print("Desculpe, não entendi.")  # Mensagem de erro se a resposta não for "sim" ou "não"
