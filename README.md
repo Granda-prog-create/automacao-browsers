@@ -27,7 +27,7 @@ Digite o que você deseja pesquisar no YouTube e pressione Enter.
 O código irá realizar a pesquisa e abrir o vídeo no navegador.
 Exemplo de uso:
 
-Digite o que você deseja pesquisar no YouTube: Metallica
+Digite o que você deseja pesquisar no YouTube: 
 
 Realizando pesquisa...
 
